@@ -3,12 +3,23 @@ import React, { useState } from "react";
 import { X, Menu, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import Link from "next/link";
+import { useRouter } from "next/navigation";  
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [socialOpen, setSocialOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const links = ["ABOUT","EVENTS", "SPEAKERS & PERFORMERS", "TEAM", "SPONSORS", "CONTACT"];
 
-  const links = ["HOME", "ABOUT", "SPEAKERS", "TEAM", "CONTACT"];
+  const getHref = (link: string) => {
+    if (link === "HOME") return "/";
+    if (link === "SPEAKERS & PERFORMERS") return "/speakers";
+    return `/${link.toLowerCase()}`;
+  };
+
 
   return (
     <header className="absolute top-0 left-0 w-full z-40 px-4 sm:px-6 md:px-8 py-4 md:py-6 h-24">
@@ -57,11 +68,11 @@ export default function Header() {
       {/* ------------------------------- */}
       {/* CENTER: LOGO                    */}
       {/* ------------------------------- */}
-      <div className="absolute top-4 md:top-4 left-1/2 -translate-x-1/2 z-40">
+      <div className="absolute top-4 md:top-4 left-1/2 -translate-x-1/2 z-40 hover:cursor-pointer">
         <img 
           src="https://res.cloudinary.com/dkbvknwcu/image/upload/v1766846025/1c4a732edd17da65e8739683d472d6fa5ed0162c_plrnph.png" 
           alt="TEDxCITBengaluru Logo" 
-          className="h-8 sm:h-10 md:h-12" 
+          className="h-8 sm:h-10 md:h-12" onClick={() => router.push('/')} 
         />
       </div>
 
@@ -85,16 +96,16 @@ export default function Header() {
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              initial={{ opacity: 0, y: -10, scale: 0.85 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              exit={{ opacity: 0, y: -10, scale: 0.85 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-0 right-0 bg-[#121212] text-white rounded-2xl p-8 w-64 shadow-2xl border border-white/10 flex flex-col"
+              className="absolute top-0 right-0 bg-[#121212] text-white rounded-2xl p-4 w-74 shadow-2xl border border-white/10 flex flex-col"
             >
               
-              {/* 1. CLOSE BUTTON (Top Right inside the card) */}
+              {/* Close Button */}
               <div className="flex justify-end mb-8">
-                <button 
+                <button
                   onClick={() => setMenuOpen(false)}
                   className="text-white hover:text-[#E62B1E] transition-colors"
                 >
@@ -102,28 +113,38 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* 2. LINKS (Right Aligned) */}
+              {/* Links */}
               <ul className="flex flex-col gap-5 text-right">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href={`#${link.toLowerCase()}`}
-                      onClick={() => setMenuOpen(false)}
-                      className={`
-                        block text-lg font-bold tracking-wider 
-                        ${link === "HOME" ? "text-[#E62B1E] underline underline-offset-4" : "text-white hover:text-[#E62B1E]"} 
-                        transition-colors duration-200
-                      `}
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                {links.map((link) => {
+                  const href = getHref(link);
+                  const isActive =
+                    pathname === href ||
+                    (href !== "/" && pathname.startsWith(href));
 
+                  return (
+                    <li key={link}>
+                      <Link
+                        href={href}
+                        onClick={() => setMenuOpen(false)}
+                        className={`
+                          block text-lg font-bold tracking-wider transition-colors duration-200
+                          ${
+                            isActive
+                              ? "text-[#E62B1E] underline underline-offset-4"
+                              : "text-white hover:text-[#E62B1E]"
+                          }
+                        `}
+                      >
+                        {link}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </motion.div>
           )}
         </AnimatePresence>
+
       </div>
 
     </header>
