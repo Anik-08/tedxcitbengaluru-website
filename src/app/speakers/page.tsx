@@ -13,19 +13,19 @@ const page = () => {
     <Header />
 
     {/* IMAGE SECTION — takes space */}
-<div className="relative w-full h-auto sm:min-h-screen overflow-hidden">
-  <Image
-    src="/images/bg-left-bird.svg"
-    alt="Mountain background"
-    width={1920}
-    height={3000}
-    priority
-    className="w-full h-auto object-contain"
-  />
+    <div className="relative w-full h-auto sm:min-h-screen overflow-hidden">
+    <Image
+        src="/images/bg-left-bird.svg"
+        alt="Mountain background"
+        width={1920}
+        height={3000}
+        priority
+        className="w-full h-auto object-contain"
+    />
 
-  {/* Gradient */}
-  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
-</div>
+    {/* Gradient */}
+    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+    </div>
 
     {/* CONTENT SECTION — starts AFTER image */}
     <div className="relative container mx-auto px-6 py-10 flex flex-col items-start">
