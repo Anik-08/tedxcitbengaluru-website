@@ -12,10 +12,10 @@ interface TeamMember {
 interface TeamLead {
     id: number;
     name?:  string;
-    names?:  string[];
+    names?: string[];
     role: string;
     isDouble?: boolean;
-    members?: TeamMember[];
+    members?:  TeamMember[];
 }
 
 interface Organizer {
@@ -29,7 +29,7 @@ interface EventData {
 }
 
 interface TeamsData {
-    [key: string]: EventData;
+    [key:  string]: EventData;
 }
 
 const Page = () => {
@@ -54,7 +54,7 @@ const Page = () => {
                     name: "Debasis Maharana", 
                     role: "Lead Creator",
                     members: [
-                        { name:  "Nandheeswaran. M", role: "Core Team" },
+                        { name:  "Nandheeswaran.M", role: "Core Team" },
                         { name: "Monish B", role: "Core Team" },
                         { name: "Rohan", role: "Core Team" },
                         { name: "Pulak Mishra", role: "Core Team" },
@@ -72,7 +72,7 @@ const Page = () => {
                         { name: "Vidhula Shree Shankar", role: "Core Team" },
                         { name: "Lagineni Sreenithai", role: "Core Team" },
                         { name: "Palleboyina Deekshitha", role: "Core Team" },
-                        { name: "Himashree Kolisetty", role: "Volunteer" },
+                        { name:  "Himashree Kolisetty", role: "Volunteer" },
                         { name: "Sudarshan S Hosamani", role: "Volunteer" },
                     ]
                 },
@@ -128,7 +128,7 @@ const Page = () => {
             organizers: [
                 { name: "Bharatesh Patel", role: "Organizer" },
                 { name: "Srinidhi GG", role: "Co-Organizer" },
-                { name: "Snehith Reddy", role:  "Lead Co-ordinator" }, 
+                { name: "Snehith Reddy", role: "Lead Co-ordinator" }, 
             ],
             teamLeads: [
                 { 
@@ -159,8 +159,8 @@ const Page = () => {
                 },
             ]
         },
-        ZENITH:  {
-            organizers: [
+        ZENITH: {
+            organizers:  [
                 { name: "Imtiyaz Ahmed", role: "Organizer" },
                 { name: "Hannah Thomas", role: "Co-Organizer" },
                 { name:  "Bharatesh Patel", role: "Lead Co-ordinator" },
@@ -176,7 +176,7 @@ const Page = () => {
                     members: []
                 },
                 { id: 5, name: "Akanksha", role: "Lead Curator", members: [] },
-                { id: 6, name:  "Zenith ECP", role: "ECP Team", members: [] },
+                { id: 6, name: "Zenith ECP", role: "ECP Team", members: [] },
             ]
         },
         ELIXIR: {
@@ -189,7 +189,7 @@ const Page = () => {
                 { id: 1, name: "Sai Sanjana", role: "Lead Curator", members: [] },
                 { id: 2, name: "Pranav Durai", role: "Lead Design", members: [] },
                 { id: 3, name: "Himanshu Agarwal", role: "Technical Lead", members: [] },
-                { id: 4, name: "Bharatesh Patel", role:  "Sponsorship Head", members:  [] },
+                { id: 4, name: "Bharatesh Patel", role: "Sponsorship Head", members: [] },
                 { 
                     id: 5,
                     names: ["Ashvin", "Parijatha G S"],
@@ -260,7 +260,7 @@ const Page = () => {
 
     const handleEventChange = (event: string) => {
         setSelectedEvent(event);
-        setExpandedTeam(null);
+        setExpandedTeam(null); // Reset expanded team when switching events
     };
 
     return (
@@ -332,13 +332,13 @@ const Page = () => {
                                 >
                                     {/* Full Image Background */}
                                     <Image
-                                        src={`/team/${selectedEvent}/${organizer.name}. jpg`}
+                                        src={`/team/${selectedEvent}/${organizer.name}.jpg`}
                                         alt={organizer.name}
                                         fill
                                         className="object-cover group-hover: scale-110 transition-transform duration-300"
                                         onError={(e) => {
                                             const target = e.currentTarget;
-                                            target. style.display = 'none';
+                                            target. style. display = 'none';
                                         }}
                                     />
                                     
@@ -366,7 +366,7 @@ const Page = () => {
                                     key={lead.id}
                                     onClick={() => handleTeamLeadClick(lead.id)}
                                     className={`relative bg-[#2A2A2A] rounded-2xl aspect-square overflow-hidden transition-all duration-300 group
-                                        ${lead.isDouble ? 'md:col-span-2 lg:col-span-2' : ''}
+                                        ${lead.isDouble ? 'md:col-span-1 lg:col-span-1' : ''}
                                         ${lead.members && lead.members.length > 0 ? 'cursor-pointer' : 'cursor-default'}
                                         ${expandedTeam === lead.id 
                                             ? 'ring-4 ring-[#EB0028] scale-105' 
@@ -394,7 +394,7 @@ const Page = () => {
                                             <div className="relative w-full h-full">
                                                 <Image
                                                     src={`/team/${selectedEvent}/${lead.names[0]}.jpg`}
-                                                    alt={lead. names[0]}
+                                                    alt={lead.names[0]}
                                                     fill
                                                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                                                     onError={(e) => {
@@ -472,7 +472,7 @@ const Page = () => {
                         <div className="w-full my-10 animate-fadeIn">
                             <div className="flex items-center justify-between mb-6">
                                 <h2 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-wider">
-                                    {currentTeamLeads.find((lead: TeamLead) => lead.id === expandedTeam)?.role} Team - {selectedEvent}
+                                    {currentTeamLeads.find((lead:  TeamLead) => lead.id === expandedTeam)?.role} Team - {selectedEvent}
                                 </h2>
                                 <button 
                                     onClick={() => setExpandedTeam(null)}
@@ -518,7 +518,7 @@ const Page = () => {
                 </div>
 
                 <footer className="w-full text-center pt-4 text-[14px] text-gray-600 mt-10">
-                    Copyright 2023 &copy; TEDxCITBengaluru.  This independent TEDx event is operated under license from TED 
+                    Copyright 2023 &copy; TEDxCITBengaluru. This independent TEDx event is operated under license from TED 
                 </footer>
             </div>
 
