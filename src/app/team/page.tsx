@@ -3,35 +3,64 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Header from '@/components/layout/header'
 
+// Define proper types
+interface TeamMember {
+    name: string;
+    role: string;
+}
+
+interface TeamLead {
+    id: number;
+    name?:  string;
+    names?:  string[];
+    role: string;
+    isDouble?: boolean;
+    members?: TeamMember[];
+}
+
+interface Organizer {
+    name: string;
+    role: string;
+}
+
+interface EventData {
+    organizers: Organizer[];
+    teamLeads: TeamLead[];
+}
+
+interface TeamsData {
+    [key: string]: EventData;
+}
+
 const Page = () => {
     // State to track selected event and expanded team
-    const [selectedEvent, setSelectedEvent] = useState("EPOCH");
+    const [selectedEvent, setSelectedEvent] = useState<string>("EPOCH");
     const [expandedTeam, setExpandedTeam] = useState<number | null>(null);
 
     // Event types array
-    const eventTypes = ["EPOCH", "AETHER", "ZENITH", "ELIXIR", "THRIVE", "IRIDESCENCE"];
+    const eventTypes:  string[] = ["EPOCH", "AETHER", "ZENITH", "ELIXIR", "THRIVE", "IRIDESCENCE"];
 
     // Teams data organized by event
-    const teamsData:    Record<string, any> = {
+    const teamsData: TeamsData = {
         EPOCH: {
-            organizers:   [
-                { name:    "Bharath SBK", role: "Organizer" },
-                { name:  "Prajna", role: "Co-Organizer" },
-                { name:  "Aaron Rohan", role: "Lead Coordinator" },
+            organizers: [
+                { name: "Bharath SBK", role: "Organizer" },
+                { name: "Prajna", role: "Co-Organizer" },
+                { name: "Aaron Rohan", role: "Lead Coordinator" },
             ],
-            teamLeads:  [
+            teamLeads: [
                 { 
-                    id:  1,
-                    name:  "Debasis Maharana", 
+                    id: 1,
+                    name: "Debasis Maharana", 
                     role: "Lead Creator",
                     members: [
-                        { name:    "Nandheeswaran. M", role: "Core Team" },
-                        { name:  "Monish B", role: "Core Team" },
+                        { name:  "Nandheeswaran. M", role: "Core Team" },
+                        { name: "Monish B", role: "Core Team" },
                         { name: "Rohan", role: "Core Team" },
-                        { name: "Pulak Mishra ", role: "Core Team" },
+                        { name: "Pulak Mishra", role: "Core Team" },
                         { name: "Sahithi K", role: "Core Team" },
                         { name: "Veeresh R Dodamani", role: "Core Team" },
-                        { name: "Sharan tej ", role: "Volunteer" },
+                        { name: "Sharan tej", role: "Volunteer" },
                     ]
                 },
                 { 
@@ -39,11 +68,11 @@ const Page = () => {
                     name: "Roshani Bankar", 
                     role: "Lead Curator",
                     members: [
-                        { name:  "Anarghya Gunashekaran ", role: "Core Team" },
+                        { name: "Anarghya Gunashekaran", role: "Core Team" },
                         { name: "Vidhula Shree Shankar", role: "Core Team" },
-                        { name: "Lagineni Sreenithai ", role: "Core Team" },
+                        { name: "Lagineni Sreenithai", role: "Core Team" },
                         { name: "Palleboyina Deekshitha", role: "Core Team" },
-                        { name:    "Himashree Kolisetty ", role: "Volunteer" },
+                        { name: "Himashree Kolisetty", role: "Volunteer" },
                         { name: "Sudarshan S Hosamani", role: "Volunteer" },
                     ]
                 },
@@ -54,17 +83,17 @@ const Page = () => {
                     isDouble: true,
                     members: [
                         { name:  "Kshitij Tiwari", role: "Core Team" },
-                        { name:  "Samhitha N A ", role: "Core Team" },
+                        { name:  "Samhitha N A", role: "Core Team" },
                         { name: "Vishnupriya S", role: "Core Team" },
-                        { name: "Anushka Tiwari ", role: "Core Team" },
-                        { name: "Faisal Imam", role: "Core Team" },
+                        { name: "Anushka Tiwari", role: "Core Team" },
+                        { name:  "Faisal Imam", role: "Core Team" },
                         { name: "Navyashree R", role: "Core Team" },
-                        { name: "Aditya Raut ", role: "Volunteer" },
+                        { name: "Aditya Raut", role: "Volunteer" },
                         { name: "Rakshitha", role: "Volunteer" },
                         { name: "Shreya Upadhyay", role: "Volunteer" },
-                        { name: "Ankur Bhattacharyya ", role: "Volunteer" },
-                        { name: "Neil Anthony ", role: "Volunteer" },
-                        { name: "Wafiza Syed ", role: "Volunteer" },
+                        { name: "Ankur Bhattacharyya", role: "Volunteer" },
+                        { name: "Neil Anthony", role: "Volunteer" },
+                        { name: "Wafiza Syed", role: "Volunteer" },
                     ]
                 },
                 { 
@@ -72,7 +101,7 @@ const Page = () => {
                     name: "Anirudh Kottakota", 
                     role: "Sponshorship Lead",
                     members: [
-                        { name:   "Anjali", role: "Core Team" },
+                        { name: "Anjali", role: "Core Team" },
                         { name: "Syed Owais", role: "Core Team" },
                         { name: "Kuladeep M N", role: "Volunteer" },
                         { name: "Arjun Dev", role: "Volunteer" },
@@ -82,13 +111,13 @@ const Page = () => {
                 { 
                     id: 6,
                     name: "Naresh Karthigeyan", 
-                    role:    "Technical Lead",
+                    role:  "Technical Lead",
                     members: [
-                        { name:  "D Manoj", role: "Core Team" },
-                        { name: "Guru Swarupa ", role: "Core Team" },
+                        { name: "D Manoj", role: "Core Team" },
+                        { name: "Guru Swarupa", role: "Core Team" },
                         { name: "Shreya V", role: "Core Team" },
                         { name: "M Krithik", role: "Volunteer" },
-                        { name: "Anik Tiwary ", role: "Volunteer" },
+                        { name: "Anik Tiwary", role: "Volunteer" },
                         { name: "Daksha K Gowda", role: "Volunteer" },
                         { name: "P L Vijaya Vittahal", role: "Volunteer" },
                     ]
@@ -96,10 +125,10 @@ const Page = () => {
             ]
         },
         AETHER: {
-            organizers:  [
-                { name:  "Bharatesh Patel", role: "Organizer" },
+            organizers: [
+                { name: "Bharatesh Patel", role: "Organizer" },
                 { name: "Srinidhi GG", role: "Co-Organizer" },
-                { name:   "Snehith Reddy", role:   "Lead Co-ordinator" }, 
+                { name: "Snehith Reddy", role:  "Lead Co-ordinator" }, 
             ],
             teamLeads: [
                 { 
@@ -113,10 +142,10 @@ const Page = () => {
                     role: "Lead Curator",
                 },
                 { 
-                    id:    3,
-                    names:    ["Prajna", "Bharath SBK"],
+                    id: 3,
+                    names: ["Prajna", "Bharath SBK"],
                     role: "Event Director",
-                    isDouble: true,
+                    isDouble:  true,
                 },
                 { 
                     id: 5,
@@ -130,11 +159,11 @@ const Page = () => {
                 },
             ]
         },
-        ZENITH:    {
+        ZENITH:  {
             organizers: [
-                { name:  "Imtiyaz Ahmed", role: "Organizer" },
+                { name: "Imtiyaz Ahmed", role: "Organizer" },
                 { name: "Hannah Thomas", role: "Co-Organizer" },
-                { name:    "Bharatesh Patel", role: "Lead Co-ordinator" },
+                { name:  "Bharatesh Patel", role: "Lead Co-ordinator" },
             ],
             teamLeads: [
                 { id: 1, name: "Mukul Singh", role: "Creative Lead", members: [] },
@@ -143,61 +172,61 @@ const Page = () => {
                     id: 3,
                     names: ["Prajna", "Bhuvan L P"],
                     role: "Event Director",
-                    isDouble:    true,
-                    members:   []
+                    isDouble:  true,
+                    members: []
                 },
                 { id: 5, name: "Akanksha", role: "Lead Curator", members: [] },
                 { id: 6, name:  "Zenith ECP", role: "ECP Team", members: [] },
             ]
         },
-        ELIXIR:  {
-            organizers:   [
-                { name:   "Poojitha Prakash", role: "Organizer" },
-                { name:  "Karan Desai", role: "Co-Organizer" },
+        ELIXIR: {
+            organizers:  [
+                { name: "Poojitha Prakash", role: "Organizer" },
+                { name: "Karan Desai", role: "Co-Organizer" },
                 { name: "Uday Shankar", role: "Student Coordinator" },
             ],
             teamLeads: [
                 { id: 1, name: "Sai Sanjana", role: "Lead Curator", members: [] },
                 { id: 2, name: "Pranav Durai", role: "Lead Design", members: [] },
                 { id: 3, name: "Himanshu Agarwal", role: "Technical Lead", members: [] },
-                { id: 4, name:   "Bharatesh Patel", role: "Sponsorship Head", members: [] },
+                { id: 4, name: "Bharatesh Patel", role:  "Sponsorship Head", members:  [] },
                 { 
                     id: 5,
                     names: ["Ashvin", "Parijatha G S"],
                     role: "Event Director",
-                    isDouble:    true,
-                    members:   []
+                    isDouble:  true,
+                    members: []
                 },
-                { id:    7, name: "Elixer ECP", role: "ECP Team", members: [] },
+                { id:  7, name: "Elixer ECP", role: "ECP Team", members: [] },
             ]
         },
         THRIVE: {
-            organizers:    [
-                { name:  "Kevin Alberts Daniel", role: "Organizer" },
+            organizers:  [
+                { name: "Kevin Alberts Daniel", role: "Organizer" },
                 { name: "Sanjeevini Surendran", role: "Co-Organizer" },
             ],
             teamLeads: [
                 { id: 1, name: "Ananya Agnihotri", role: "Lead Curator", members: [] },
-                { id: 2, name:    "Uday Shankar", role: "Lead Designer", members: [] },
+                { id: 2, name:  "Uday Shankar", role: "Lead Designer", members: [] },
                 { id: 3, name: "Ishan Dubey", role: "Technical Lead", members: [] },
                 { id: 4, name: "Vanishree Kulkarni", role: "Social Media Manager", members: [] },
-                { id: 5, name: "Bharatesh Patel", role:    "Sponsorship Head", members:    [] },
+                { id: 5, name: "Bharatesh Patel", role:  "Sponsorship Head", members:  [] },
                 { 
                     id: 6,
                     names: ["Lennard Mario", "Parijatha G S"],
                     role: "Event Director",
-                    isDouble:  true,
+                    isDouble: true,
                     members: []
                 },
-                { id:   8, name: "Thrive ECP", role: "ECP Team", members: [] },
+                { id: 8, name: "Thrive ECP", role: "ECP Team", members: [] },
             ]
         },
-        IRIDESCENCE:    {
-            organizers: [
-                { name:  "Kevin Alberts Daniel", role: "Organizer" },
+        IRIDESCENCE: {
+            organizers:  [
+                { name: "Kevin Alberts Daniel", role: "Organizer" },
                 { name: "Sanjeevini Surendran", role: "Co-Organizer" },
             ],
-            teamLeads:    [
+            teamLeads:  [
                 { id: 1, name: "Karan Desai", role: "Lead Curator", members: [] },
                 { id: 2, name: "Uday Shankar", role: "Lead Creator", members: [] },
                 { id: 3, name: "Ishan Dubey", role: "Technical Lead", members: [] },
@@ -207,7 +236,7 @@ const Page = () => {
                     id: 6,
                     names: ["S G Yashoda", "Poojitha Prakash"],
                     role: "Event Director",
-                    isDouble:   true,
+                    isDouble: true,
                     members: []
                 },
             ]
@@ -219,8 +248,8 @@ const Page = () => {
     const currentTeamLeads = teamsData[selectedEvent]?.teamLeads || [];
 
     const handleTeamLeadClick = (teamId: number) => {
-        const lead = currentTeamLeads.find(l => l.id === teamId);
-        if (lead?.  members && lead. members.length > 0) {
+        const lead = currentTeamLeads.find((l:  TeamLead) => l.id === teamId);
+        if (lead?. members && lead.members.length > 0) {
             if (expandedTeam === teamId) {
                 setExpandedTeam(null);
             } else {
@@ -276,8 +305,8 @@ const Page = () => {
                             className={`min-h-[44px] w-auto px-10 py-3 text-sm font-semibold rounded-full
                                 transition-all duration-300 flex items-center justify-center ${
                                 selectedEvent === event
-                                    ?    "bg-[#EB0028] text-white shadow-lg shadow-[#EB0028]/30 scale-105"
-                                    :    "text-gray-400 border border-gray-700 hover:text-white hover:border-[#EB0028]"
+                                    ?  "bg-[#EB0028] text-white shadow-lg shadow-[#EB0028]/30 scale-105"
+                                    :  "text-gray-400 border border-gray-700 hover:text-white hover:border-[#EB0028]"
                             }`}
                         >
                             {event}
@@ -303,12 +332,12 @@ const Page = () => {
                                 >
                                     {/* Full Image Background */}
                                     <Image
-                                        src={`/team/${selectedEvent}/${organizer.name}.jpg`}
+                                        src={`/team/${selectedEvent}/${organizer.name}. jpg`}
                                         alt={organizer.name}
                                         fill
                                         className="object-cover group-hover: scale-110 transition-transform duration-300"
                                         onError={(e) => {
-                                            const target = e.target as HTMLImageElement;
+                                            const target = e.currentTarget;
                                             target. style.display = 'none';
                                         }}
                                     />
@@ -337,10 +366,10 @@ const Page = () => {
                                     key={lead.id}
                                     onClick={() => handleTeamLeadClick(lead.id)}
                                     className={`relative bg-[#2A2A2A] rounded-2xl aspect-square overflow-hidden transition-all duration-300 group
-                                        ${lead.isDouble ? 'md:col-span-1 lg:col-span-1' : ''}
+                                        ${lead.isDouble ? 'md:col-span-2 lg:col-span-2' : ''}
                                         ${lead.members && lead.members.length > 0 ? 'cursor-pointer' : 'cursor-default'}
                                         ${expandedTeam === lead.id 
-                                            ?  'ring-4 ring-[#EB0028] scale-105' 
+                                            ? 'ring-4 ring-[#EB0028] scale-105' 
                                             : 'hover:scale-105'
                                         }`}
                                     style={{
@@ -360,17 +389,17 @@ const Page = () => {
                                     
                                     {/* Display single or double photos */}
                                     {lead.isDouble && lead.names ?  (
-                                        <div className="relative w-full h-full grid grid-cols-2 aspect-auto">
+                                        <div className="relative w-full h-full grid grid-cols-2">
                                             {/* Left Half */}
-                                            <div className="relative w-full h-full grid-cols-2">
+                                            <div className="relative w-full h-full">
                                                 <Image
                                                     src={`/team/${selectedEvent}/${lead.names[0]}.jpg`}
                                                     alt={lead. names[0]}
                                                     fill
                                                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                                                     onError={(e) => {
-                                                        const target = e.target as HTMLImageElement;
-                                                        target.style.display = 'none';
+                                                        const target = e.currentTarget;
+                                                        target.style. display = 'none';
                                                     }}
                                                 />
                                                 {/* Gradient for left side */}
@@ -385,7 +414,7 @@ const Page = () => {
                                                     fill
                                                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                                                     onError={(e) => {
-                                                        const target = e.target as HTMLImageElement;
+                                                        const target = e.currentTarget;
                                                         target.style.display = 'none';
                                                     }}
                                                 />
@@ -409,11 +438,11 @@ const Page = () => {
                                             {/* Single Image */}
                                             <Image
                                                 src={`/team/${selectedEvent}/${lead. name}.jpg`}
-                                                alt={lead.name}
+                                                alt={lead.name || 'Team Lead'}
                                                 fill
-                                                className="object-cover group-hover: scale-110 transition-transform duration-300"
+                                                className="object-cover group-hover:scale-110 transition-transform duration-300"
                                                 onError={(e) => {
-                                                    const target = e. target as HTMLImageElement;
+                                                    const target = e.currentTarget;
                                                     target.style.display = 'none';
                                                 }}
                                             />
@@ -443,7 +472,7 @@ const Page = () => {
                         <div className="w-full my-10 animate-fadeIn">
                             <div className="flex items-center justify-between mb-6">
                                 <h2 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-wider">
-                                    {currentTeamLeads.find(lead => lead.id === expandedTeam)?.role} Team - {selectedEvent}
+                                    {currentTeamLeads.find((lead: TeamLead) => lead.id === expandedTeam)?.role} Team - {selectedEvent}
                                 </h2>
                                 <button 
                                     onClick={() => setExpandedTeam(null)}
@@ -453,7 +482,7 @@ const Page = () => {
                                 </button>
                             </div>
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-                                {currentTeamLeads.find(lead => lead.id === expandedTeam)?.members?.map((member, idx) => (
+                                {currentTeamLeads.find((lead: TeamLead) => lead.id === expandedTeam)?.members?.map((member, idx) => (
                                     <div
                                         key={idx}
                                         className="relative bg-[#1A1A1A] rounded-2xl aspect-square overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer border border-gray-800 hover:border-[#EB0028] group"
@@ -463,13 +492,13 @@ const Page = () => {
                                     >
                                         {/* Full Image */}
                                         <Image
-                                            src={`/team/${selectedEvent}/${member. name}.jpg`}
+                                            src={`/team/${selectedEvent}/${member.name}.jpg`}
                                             alt={member.name}
                                             fill
-                                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                                            className="object-cover group-hover: scale-110 transition-transform duration-300"
                                             onError={(e) => {
-                                                const target = e. target as HTMLImageElement;
-                                                target.style.display = 'none';
+                                                const target = e.currentTarget;
+                                                target. style.display = 'none';
                                             }}
                                         />
                                         
@@ -489,7 +518,7 @@ const Page = () => {
                 </div>
 
                 <footer className="w-full text-center pt-4 text-[14px] text-gray-600 mt-10">
-                    Copyright 2023 &copy; TEDxCITBengaluru.   This independent TEDx event is operated under license from TED 
+                    Copyright 2023 &copy; TEDxCITBengaluru.  This independent TEDx event is operated under license from TED 
                 </footer>
             </div>
 
@@ -497,7 +526,7 @@ const Page = () => {
             <style jsx>{`
                 @keyframes fadeIn {
                     from { opacity: 0; transform: translateY(-20px); }
-                    to { opacity: 1; transform:   translateY(0); }
+                    to { opacity: 1; transform:  translateY(0); }
                 }
                 @keyframes slideUp {
                     from { opacity: 0; transform: translateY(30px); }
