@@ -38,7 +38,7 @@ const Page = () => {
     const [expandedTeam, setExpandedTeam] = useState<number | null>(null);
 
     // Event types array
-    const eventTypes:  string[] = ["EPOCH", "AETHER", "ZENITH", "ELIXIR", "THRIVE", "IRIDESCENCE"];
+    const eventTypes:  string[] = ["Epoch", "Aether", "Zenith", "Elixir", "Thrive", "Iridescence"];
 
     // Teams data organized by event
     const teamsData: TeamsData = {
